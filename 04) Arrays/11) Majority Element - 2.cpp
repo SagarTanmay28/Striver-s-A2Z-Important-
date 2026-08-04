@@ -1,59 +1,52 @@
 class Solution {
 public:
     vector<int> majorityElement(vector<int>& nums) {
+        int n = nums.size();
+        
+        int maj1    = NULL;
+        int count1  = 0;
 
-        int cnt1 = 0;
-        int cnt2 = 0;
+        int maj2    = NULL;
+        int count2  = 0;
 
-        int ele1 = INT_MIN;
-        int ele2 = INT_MIN;
+        int freq    = floor(n/3);
+        
+        for(int i = 0; i<n; i++) {
+            if(nums[i] == maj1)
+                count1++;
 
-        for(int i = 0; i < nums.size(); i++) {
+            else if(nums[i] == maj2)
+                count2++;
 
-            if(cnt1 == 0 && nums[i] != ele2) {
-                ele1 = nums[i];
-                cnt1 = 1;
-            }
-
-            else if(cnt2 == 0 && nums[i] != ele1) {
-                ele2 = nums[i];
-                cnt2 = 1;
-            }
-
-            else if(nums[i] == ele1) {
-                cnt1++;
-            }
-
-            else if(nums[i] == ele2) {
-                cnt2++;
-            }
-
+            else if(count1 == 0) {
+                maj1 = nums[i];
+                count1 = 1;
+            } 
+            else if(count2 == 0) {
+                maj2 = nums[i];
+                count2 = 1;
+            } 
             else {
-                cnt1--;
-                cnt2--;
+                count1--;
+                count2--;
             }
         }
-
-        cnt1 = 0;
-        cnt2 = 0;
-
-        for(int i = 0; i < nums.size(); i++) {
-
-            if(nums[i] == ele1) cnt1++;
-
-            else if(nums[i] == ele2) cnt2++;
+        
+        vector<int> result; //because atmost two elements can occur more than ⌊ n/3 ⌋ in an array of length n
+        count1 = 0;
+        count2 = 0;
+        for(int num:nums) {
+            if(num == maj1)
+                count1++;
+            else if(num == maj2)
+                count2++;
         }
+        if(count1 > floor(n/3))
+            result.push_back(maj1);
+        if(count2 > floor(n/3))
+            result.push_back(maj2);
+        return result;
 
-        vector<int> ans;
 
-        if(cnt1 > nums.size()/3) {
-            ans.push_back(ele1);
-        }
-
-        if(cnt2 > nums.size()/3) {
-            ans.push_back(ele2);
-        }
-
-        return ans;
     }
 };
