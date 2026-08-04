@@ -11,31 +11,38 @@ public:
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-
-     
         int n = nums.size();
-        int ind = -1;
+
+        // 1) finding pivot index
+        int idx = -1;
         for(int i = n-2; i>=0; i--){
-            if(nums[i]<nums[i+1]){
-                ind = i;
+            if(nums[i] < nums[i+1]){
+                idx = i;
                 break;
             }
         }
 
-        if(ind == -1){
+        if(idx == -1){ // if array is already greatest
             reverse(nums.begin(), nums.end());
             return;
         }
-        
-        for(int i = n-1; i>ind; i--){
-            if(nums[i]>nums[ind]){
-                swap(nums[i], nums[ind]);
+
+        // 2) sorting/reverse after pivot
+        reverse(nums.begin()+idx+1, nums.end());
+
+        // 3) Finding the just greater element than idx
+        int j = -1;
+        for(int i = idx+1; i<n; i++){
+            if(nums[i] > nums[idx]){
+                j = i;
                 break;
             }
         }
 
-        reverse(nums.begin()+ ind+1, nums.end());
-        
+        // 3) swapping idx and j
+        swap(nums[idx],nums[j]);
+
+        return;
     }
 };
     
