@@ -19,12 +19,18 @@ vector<vector<int>> threeSum(vector<int>& nums) {
         
         // Sort the array
         sort(nums.begin(), nums.end());
+        // n1 + n2 + n3  = 0;
+        //      n2 + n3  = -(n1);
+        //    -(n2 + n3) = n1
+        //     n1 -> nums[i];
+        //   target-> sum of two values whose sum = -n1
         
         for (int i = 0; i < n; ++i) {
             // Skip duplicates for the first element
             if (i > 0 && nums[i] == nums[i - 1]) continue;
-            
+           
             int left = i + 1, right = n - 1;
+            // 2-sum 
             while (left < right) {
                 int sum = nums[i] + nums[left] + nums[right];
                 
