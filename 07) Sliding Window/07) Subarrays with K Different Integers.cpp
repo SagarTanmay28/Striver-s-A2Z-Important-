@@ -31,15 +31,11 @@ public:
         // Sliding Window 
         while(j < n){
             mp[nums[j]]++;
-            if(mp[nums[j]] == 1){
-                k--; // new distinct element entered into map 
-            }
+            
 
-            while(k < 0){ // shrink window 
+            while(mp.size() > k){ // shrink window 
                 mp[nums[i]]--;
-                if(mp[nums[i]] == 0){
-                    k++;
-                }
+                if(mp[nums[i]] == 0) mp.erase(nums[i]);
                 i++;
             }
 
